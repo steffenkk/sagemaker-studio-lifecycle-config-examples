@@ -11,9 +11,10 @@
 set -eux
 
 # timeout in minutes
-export TIMEOUT_IN_MINS=120
+export TIMEOUT_IN_MINS=180
 
 # Should already be running in user home directory, but just to check:
+mkdir /home/sagemaker-user || true
 cd /home/sagemaker-user
 
 # By working in a directory starting with ".", we won't clutter up users' Jupyter file tree views
@@ -56,10 +57,6 @@ pip install --no-dependencies --no-build-isolation -e .
 jupyter serverextension enable --py sagemaker_studio_autoshutdown
 
 # Restarts the jupyter server
-nohup supervisorctl -c /etc/supervisor/conf.d/supervisord.conf restart jupyterlabserver
-
-# Waiting for 30 seconds to make sure the Jupyter Server is up and running
+echo 'The next command will stop the current session. Please reopen the terminal to run the last command from the tutorial.'
 sleep 30
-
-# Calling the script to set the idle-timeout and active the extension
-/home/sagemaker-user/.auto-shutdown/set-time-interval.sh
+nohup supervisorctl -c /etc/supervisor/conf.d/supervisord.conf restart jupyterlabserver
