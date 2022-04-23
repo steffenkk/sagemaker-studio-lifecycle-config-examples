@@ -11,7 +11,7 @@
 set -eux
 
 # timeout in minutes
-export TIMEOUT_IN_MINS=180
+export TIMEOUT_IN_MINS=120
 
 # Should already be running in user home directory, but just to check:
 mkdir /home/sagemaker-user || true
